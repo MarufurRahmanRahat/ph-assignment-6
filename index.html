@@ -21,7 +21,11 @@
     <!-- nav bar -->
      <div class=" text-white  bg-[#15803d] flex justify-between items-center px-[130px] py-[15px] "> 
             <h3 class="font-bold text-[24px]">Green Earth</h3>
-            <pre class="font-normal">About  Gallery  Plant a Tree</pre>
+            <div class="">
+            <a href="" class="font normal pr-[8px] text-[14px]">About</a>
+            <a href="" class="font normal pr-[8px] text-[14px]">Gallery</a>
+            <a href="" class="font normal pr-[8px] text-[14px]">Plant a Tree</a> 
+            </div>
             <button class=" text-[#15803d] bg-[#facc15] rounded-[999px] px-[20px] py-[6px] font-medium text-[16px] ">Plant a Tree</button>
      </div>
 
@@ -90,16 +94,23 @@
     <h3 class="text-[#ffffff] text-[32px] text-center font-semibold mb-[40px] ">Plant a Tree Today</h3>
     <div class="bg-[#15803d] text-center mx-[500px] p-[30px] rounded-[10px]">
       <form action="">
-        <input class="border-[1px] border-[#e4e4e7] rounded-[6px] bg-[#ffffff] text-[#1f2937] py-[6px] pl-[3px] mb-[10px] w-[100%]" type="text" id="name" name="name" placeholder="Your Name" required><br>
-        <input class="border-[1px] border-[#e4e4e7] rounded-[6px] bg-[#ffffff] text-[#1f2937] py-[6px] pl-[3px] mb-[10px] w-[100%]" type="email" id="email" name="email" placeholder="Your Email Address" required><br>
-        <input class="border-[1px] border-[#e4e4e7] rounded-[6px] bg-[#ffffff] text-[#1f2937] py-[6px] pl-[3px] mb-[10px] w-[100%]" type="number" id="trees" name="trees" min="1" placeholder="Number of Trees" required><br>
-        <button class=" text-[#15803d] bg-[#facc15] rounded-[40px] px-[20px] py-[6px] font-medium text-[16px] w-[100%] " type="submit">Donate Now</button>
+        <input class="border-[1px] border-[#e4e4e7] rounded-[6px] bg-[#ffffff] text-[14px] text-[#1f2937] py-[6px] pl-[5px] mb-[10px] w-[100%]" type="text" id="name" name="name" placeholder="Your Name" required><br>
+        <input class="border-[1px] border-[#e4e4e7] rounded-[6px] bg-[#ffffff] text-[14px] text-[#1f2937] py-[6px] pl-[5px] mb-[10px] w-[100%]" type="email" id="email" name="email" placeholder="Your Email Address" required><br>
+        <select class="border-[1px] border-[#e4e4e7] rounded-[6px] bg-[#ffffff] text-[14px]  text-[#1f2937] py-[6px] pl-[5px] mb-[10px] w-[100%]" type="number" id="trees" name="trees" required>
+          <option value="">Number of Trees</option>
+            <option value="1">1 Tree - $5</option>
+            <option value="5">5 Trees - $25</option>
+            <option value="10">10 Trees - $50</option>
+        </select><br>
+        <button class=" text-[#15803d] bg-[#facc15] rounded-[40px] px-[20px] py-[6px] font-medium text-[14px] w-[100%] " type="submit">Donate Now</button>
       </form>
     </div>
   </div>
    </main>
-   <footer>
 
+   <!-- footer -->
+   <footer class="text-[#ffffff] text-[14px]  text-center font-normal bg-[#14532d] py-[25px]">
+     <p>© 2025 Green Earth. All Rights Reserved.</p>
    </footer>
 </body>
 </html>
