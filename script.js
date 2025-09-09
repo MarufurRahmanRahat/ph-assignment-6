@@ -41,7 +41,7 @@ disPlayAllTrees = (trees) => {
         <div class="card bg-white h-[550px] shadow-2xl rounded-2xl ">
        <figure class="h-72 overflow-hidden rounded-t-2xl"> <img  src="${tr.image}"></figure>
         <div class="p-5 space-y-2">
-        <h2 class="font-bold text-2xl">${tr.name}</h2>
+        <h2 onclick="detailsOfCard('${tr.id}')" class="cursor-pointer font-bold text-2xl">${tr.name}</h2>
         <p class="h-20">${shortDscp}</p>
         <div class="flex justify-between">
         <div class="bg-green-400 rounded-2xl">
@@ -59,3 +59,32 @@ disPlayAllTrees = (trees) => {
 }
 allTrees();
 
+// Modal of tree details
+
+
+const detailsOfCard = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/plant/${id}`).then(response=>response.json()).then(loadData=>displayCardDetails(loadData.plants))
+}
+displayCardDetails = (details) => {
+   console.log(details);
+   
+   const  cardDetails = document.getElementById("card-details");
+    cardDetails.innerHTML =`
+    <div class="model-card text-left p-4 bg-white h-[490px] rounded-lg shadow-md overflow-hidden flex flex-col">
+    <h1 class="font-bold text-2xl mb-3">${details.name}</h1>
+    
+    <figure class="h-[80%] mb-3 overflow-hidden flex items-center justify-center bg-gray-100">
+        <img class="object-cover w-full h-full" src="${details.image}" alt="${details.name}">
+    </figure>
+    
+    <div class="flex-1 space-y-3">
+        <p class="text-gray-800 text-xl"><span class="font-bold">Category :</span> ${details.category}</p>
+        <p class="text-gray-800 text-xl"><span class="font-bold">Price :</span> ট${details.price}</p>
+        <p class="text-gray-800 text-xl"><span class="font-bold">Description :</span> ${details.description}</p>
+    </div>
+</div>
+    `
+    document.getElementById("my_modal_5").showModal();
+
+
+}
