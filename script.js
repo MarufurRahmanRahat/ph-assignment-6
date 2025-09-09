@@ -1,3 +1,24 @@
+  //  Spinner
+
+  const Spinner = (status) =>{
+    console.log(status);
+    
+  if(status==true){
+    document.getElementById("loader").classList.remove("hidden");
+    document.getElementById("container-card").classList.add("hidden");
+  }
+  else{
+    document.getElementById("loader").classList.add("hidden");
+    
+    document.getElementById("container-card").classList.remove("hidden");
+    
+  }
+}
+
+
+
+
+
 // Fetch All Category 
 
 
@@ -25,6 +46,7 @@ loadCategory();
 // Fetch All Trees 
 
 const allTrees = () =>{
+    Spinner(true);
     fetch(`https://openapi.programming-hero.com/api/plants`)
     .then(response=>response.json())
     .then(loadData=>disPlayAllTrees(loadData.plants))
@@ -49,13 +71,14 @@ disPlayAllTrees = (trees) => {
         </div>
         <p class=" text-green-700">ট <span class="text-green-700 font-bold text-2xl">${tr.price}</span></p>
         </div>
-        <button class="mt-2 bg-green-600 text-white font-bold w-full text-center p-3 rounded-4xl cursor-pointer">Add to Cart</button>
+        <button onclick="addHistory('${tr.name}','${tr.price}')" class="mt-2 bg-green-600 text-white font-bold w-full text-center p-3 rounded-4xl cursor-pointer">Add to Cart</button>
         </div>
         
         </div>
         ` 
         containerCard.appendChild(card);
     })
+    Spinner(false);
 }
 allTrees();
 
@@ -93,12 +116,27 @@ displayCardDetails = (details) => {
 // Category wise Tree  
 
 const takeCategory = (takeCtg) => {
+    Spinner(true);
     fetch(`https://openapi.programming-hero.com/api/category/${takeCtg}`)
     .then(response=>response.json())
     .then(loadData=>displayTrees(loadData.plants))
 }
 
 displayTrees = (ctg) => {
+    const removesBg = document.getElementById("all-category");
+    for(let i=0;i<removesBg.children.length;i++){
+        const child = removesBg.children[i];
+        const Clean = String(ctg[0].category).trim().toLowerCase();
+     const childClean = child.innerText.trim().toLowerCase();
+     if(Clean === childClean){
+      child.classList.add("active")
+      
+     }
+     else{
+           child.classList.remove("active")
+
+     }
+    }
     const containerCard = document.getElementById("container-card");
     containerCard.innerHTML = "";
     ctg.forEach(ctgDetail => {
@@ -126,6 +164,7 @@ displayTrees = (ctg) => {
         containerCard.appendChild(card);
         
     })
+    Spinner(false);
 }
 
 
@@ -197,8 +236,8 @@ const addHistory = (nameTree,priceTree) =>{
     const divTotal = document.createElement("div");
     divTotal.innerHTML = `
        <div id="total" class="flex justify-between items-center"> 
-        <h1 class =" mt-4 font-bold text-xl">Total : </h1>
-        <p id="amount" class =" mt-4 font-bold text-xl">${amount}</p>
+        <h1 class =" mt-4 font-bold text-green-700">Total : </h1>
+        <p id="amount" class =" mt-4 font-bold ">${amount}</p>
        </div>
     `
     add.appendChild(divTotal);
@@ -246,3 +285,4 @@ const deleteHistory = (priceTree , nameTree)=>{
      
      
   }
+

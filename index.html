@@ -55,7 +55,9 @@
   <!-- All functionalities with card  -->
 
     <h2 class="text-center text-4xl font-bold">Choose Your Trees</h2>
-
+   <section id="loader" class="flex justify-center items-center hidden">
+       <span class="loading loading-dots loading-xl"></span>
+     </section>
     <div id="functionalities-container" class="grid grid-cols-1 md:grid-cols-12 w-11/12  mx-auto mt-8 gap-3 h-[100%]">
       <div id="all-category" class="col-span-2">
 
@@ -63,17 +65,18 @@
       <div id="container-card" class="grid col-span-8 grid-cols-1 md:grid-cols-3 gap-4">
 
       </div>
-      <div id="yourCart" class="border-2 col-span-2">
+      <div id="yourCart" class="border-2 border-[#f0fdf4] col-span-2 bg-white rounded-2xl">
 
       </div>
     </div>
 
+  
    
    
 
   <!-- About section -->
 
-<div class=" mt-[110px] mb-[100px] hidden">
+<div class=" mt-[110px] mb-[100px] ">
  <h2 class="text-center text-[#1f2937] text-3xl font-semibold mb-10">About the Campaign</h2>
  <div class="grid grid-cols-1  items-center  gap-[20px] px-[50px] md:grid-cols-2 md:px-[80px] lg:px-[170px] xl:px-[250px]">
   <div class="">
