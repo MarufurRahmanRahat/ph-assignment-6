@@ -20,3 +20,42 @@ disPlayCategory = (allCategory) =>{
     });
 }
 loadCategory();
+
+
+// Fetch All Trees 
+
+const allTrees = () =>{
+    fetch(`https://openapi.programming-hero.com/api/plants`)
+    .then(response=>response.json())
+    .then(loadData=>disPlayAllTrees(loadData.plants))
+}
+disPlayAllTrees = (trees) => {
+    const containerCard = document.getElementById("container-card");
+    containerCard.innerHTML = "";
+    trees.forEach(tr =>{
+        const len = Math.floor(tr.description.length*(1/2));
+        const shortDscp = tr.description.slice(0,len) + ". . .";
+        const card = document.createElement("div");
+        card.innerHTML = 
+        `
+        <div class="card bg-white h-[550px] shadow-2xl rounded-2xl ">
+       <figure class="h-72 overflow-hidden rounded-t-2xl"> <img  src="${tr.image}"></figure>
+        <div class="p-5 space-y-2">
+        <h2 class="font-bold text-2xl">${tr.name}</h2>
+        <p class="h-20">${shortDscp}</p>
+        <div class="flex justify-between">
+        <div class="bg-green-400 rounded-2xl">
+        <p class="text-green-950 p-2">${tr.category}</p>
+        </div>
+        <p class=" text-green-700">ট <span class="text-green-700 font-bold text-2xl">${tr.price}</span></p>
+        </div>
+        <button class="mt-2 bg-green-600 text-white font-bold w-full text-center p-3 rounded-4xl cursor-pointer">Add to Cart</button>
+        </div>
+        
+        </div>
+        ` 
+        containerCard.appendChild(card);
+    })
+}
+allTrees();
+
