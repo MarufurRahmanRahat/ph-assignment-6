@@ -14,7 +14,7 @@ disPlayCategory = (allCategory) =>{
     allCategory.forEach(element => {
         const ctgItem = document.createElement("div");
         ctgItem.innerHTML = `
-        <li class="w-full mt-4 text-left rounded-2xl list-none cursor-pointer hover:bg-green-400 p-5 font-semibold">${element.category_name}</li>
+        <li onclick = "takeCategory('${element.id}')" class="w-full mt-4 text-left rounded-2xl list-none cursor-pointer hover:bg-green-400 p-5 font-semibold">${element.category_name}</li>
         `
         ctg.appendChild(ctgItem);
     });
@@ -87,4 +87,43 @@ displayCardDetails = (details) => {
     document.getElementById("my_modal_5").showModal();
 
 
+}
+
+
+// Category wise Tree  
+
+const takeCategory = (takeCtg) => {
+    fetch(`https://openapi.programming-hero.com/api/category/${takeCtg}`)
+    .then(response=>response.json())
+    .then(loadData=>displayTrees(loadData.plants))
+}
+
+displayTrees = (ctg) => {
+    const containerCard = document.getElementById("container-card");
+    containerCard.innerHTML = "";
+    ctg.forEach(ctgDetail => {
+        const len = Math.floor(ctgDetail.description.length*(1/2));
+        const shortDscp = ctgDetail.description.slice(0,len) + ". . .";
+        const card = document.createElement("div");
+        card.innerHTML = 
+        `
+        <div class="card bg-white h-[550px] shadow-2xl rounded-2xl ">
+       <figure class="h-72 overflow-hidden rounded-t-2xl"> <img  src="${ctgDetail.image}"></figure>
+        <div class="p-5 space-y-2">
+        <h2 onclick="detailsOfCard('${ctgDetail.id}')" class="cursor-pointer font-bold text-2xl">${ctgDetail.name}</h2>
+        <p class="h-20">${shortDscp}</p>
+        <div class="flex justify-between">
+        <div class="bg-green-400 rounded-2xl">
+        <p class="text-green-950 p-2">${ctgDetail.category}</p>
+        </div>
+        <p class=" text-green-700">ট <span class="text-green-700 font-bold text-2xl">${ctgDetail.price}</span></p>
+        </div>
+        <button class="mt-2 bg-green-600 text-white font-bold w-full text-center p-3 rounded-4xl cursor-pointer">Add to Cart</button>
+        </div>
+        
+        </div>
+        ` 
+        containerCard.appendChild(card);
+        
+    })
 }
