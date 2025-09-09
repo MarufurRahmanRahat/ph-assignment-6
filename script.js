@@ -118,7 +118,7 @@ displayTrees = (ctg) => {
         </div>
         <p class=" text-green-700">ট <span class="text-green-700 font-bold text-2xl">${ctgDetail.price}</span></p>
         </div>
-        <button class="mt-2 bg-green-600 text-white font-bold w-full text-center p-3 rounded-4xl cursor-pointer">Add to Cart</button>
+        <button onclick="addHistory('${ctgDetail.name}','${ctgDetail.price}')" class="mt-2 bg-green-600 text-white font-bold w-full text-center p-3 rounded-4xl cursor-pointer">Add to Cart</button>
         </div>
         
         </div>
@@ -127,3 +127,122 @@ displayTrees = (ctg) => {
         
     })
 }
+
+
+// Cart History 
+
+
+const addHistory = (nameTree,priceTree) =>{
+     const Alert = document.getElementById("alert-msg");
+    document.getElementById("alertblur").style.display = 'block';
+     const div = document.createElement("div");
+     div.innerHTML = `
+      <div class="div-1">
+           <p>green-earth-prep.netify.app says</p>
+        </div><br>
+        <div class="div-2">
+          <div class="calling flex gap-3">
+              
+             <p>${nameTree}</p>
+             <p>has been added to the cart.</p>
+          </div>
+        </div><br>
+        <div class="div-3 flex justify-between">
+          <div>
+
+          </div>
+          <div>
+            <button id="OK-btn" class="bg-pink-300 text-black w-16 h-10 rounded-xl">OK</button>
+          </div>
+        </div>
+     `
+
+     Alert.appendChild(div)
+     Alert.style.display = 'block';
+     const OkBtn = document.getElementById("OK-btn");
+     OkBtn.addEventListener("click",function(){
+       document.getElementById("alertblur").style.display = 'none';
+      Alert.innerHTML ="";
+      Alert.style = 'z=-100'
+         const add = document.getElementById("yourCart");
+        const cart = document.createElement("div");   
+        const total = document.getElementById("total");
+        let pastTotal;
+        let amount = priceTree;
+    if(total && add.childElementCount>1){
+     pastTotal = parseInt(document.getElementById("amount").innerText);
+      total.remove();
+    }
+   
+   cart.innerHTML = `
+                 <div class="cartadd flex justify-between items-center rounded-lg bg-[#cff0dc] mt-2">
+                        <div class="left p-3">
+                            <h2 class="font-bold">${nameTree}</h2>
+                            <p class="text-gray-500 ">ট <span>${priceTree}</span> x 1</p>
+                         </div>
+                         <div class="right pr-3">
+                          <button onclick="deleteHistory('${priceTree}','${nameTree}')" class=" text-red-800 font-bold cursor-pointer">X</button>
+                         </div>
+                    </div>
+              
+   `
+  add.appendChild(cart);
+  
+  
+  if(pastTotal>0){
+   amount = pastTotal + parseInt(priceTree);
+  }
+  
+  if (!document.getElementById("total")) {
+    const divTotal = document.createElement("div");
+    divTotal.innerHTML = `
+       <div id="total" class="flex justify-between items-center"> 
+        <h1 class =" mt-4 font-bold text-xl">Total : </h1>
+        <p id="amount" class =" mt-4 font-bold text-xl">${amount}</p>
+       </div>
+    `
+    add.appendChild(divTotal);
+
+  }
+
+     })
+
+
+
+  
+  
+}
+
+const deleteHistory = (priceTree , nameTree)=>{
+    
+    // console.log(taka);
+    // console.log(fruitName);
+    
+    
+  const cards = document.querySelectorAll(".cartadd");
+   for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+    const fruitPrice = parseInt(card.children[0].children[1].children[0].innerText);
+    const reqFruitName = card.children[0].children[0].innerHTML;
+    // console.log(fruitPrice);
+    // console.log(reqFruitName);
+    
+    
+    if (fruitPrice === parseInt(priceTree) && nameTree === reqFruitName) {
+        card.remove();
+        const amountTotal = document.getElementById("amount");
+        const pastTotal = parseInt(amountTotal.innerText);
+        const nowTotal = pastTotal - fruitPrice;
+        
+        if (parseInt(nowTotal) === 0) {
+            const removeTotal = document.getElementById("total");
+            removeTotal.remove();
+        }
+        
+        amountTotal.innerText = nowTotal;
+        break; 
+    }
+}
+     
+     
+  }
